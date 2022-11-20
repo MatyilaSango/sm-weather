@@ -63,6 +63,11 @@
   color: white;
 }
 
+.searchForm input::placeholder{
+  color: rgba(255, 255, 255, 0.6);
+  
+}
+
 .searchForm input:focus{
   border: none;
   outline: none;
