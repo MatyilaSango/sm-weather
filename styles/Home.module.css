@@ -1,5 +1,154 @@
 .container {
-  padding: 0 2rem;
+  width: 100%;
+  height: 100vh;  
+}
+.mainContainer{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  overflow: hidden;
 }
 
+.mainContainer .weatherWallpaper{
+  position: relative;
+  top: -500px;
 
+}
+
+.topContainer{
+  padding: 0 2rem;
+  width: 100%;
+  height: 100%;
+  background-color: #23232340;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+}
+
+.navContainer{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchContainer{
+  width: 400px;
+  height: 50px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+}
+
+.searchForm{
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: transparent;
+  border-radius: 30px;
+  display: flex;
+  overflow: hidden;
+}
+
+.searchForm input{
+  width: calc(100% - 50px);
+  height: 100%;
+  background-color: inherit;
+  padding-left: 20px;
+  border: none;
+  font-size: 20px;
+  color: white;
+}
+
+.searchForm input:focus{
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.searchForm button{
+  width: 50px;
+  height: 100%;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.searchForm button:active{
+  background-color: rgba(0, 128, 0, 0.5);
+}
+
+.searchForm button .searchIcon{
+  width: 40px;
+  height: 40px;
+}
+
+.todayWeatherContainer{
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todayWeatherContainerDisplay{
+  width: 500px;
+  height: 80%;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: transparent;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.locationWeather{
+  width: 100%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.locationWeather span{
+  margin-left: 20px;
+  font-size: 20px;
+  color: white;
+}
+
+.todayWeather{
+  width: 100%;
+  height: 70%;
+  display: flex
+}
+.weatherIcon{
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weatherDegrees{
+  width: 70%;
+  height: 100%;
+}
+
+.weatherDegreesValues{
+  width: 100%;
+  height: 30%;
+}
+
+.weatherTypeValues{
+  width: 100%;
+  height: 70%;
+}
+
+.weatherDegreesValues,.weatherTypeValues{
+  display: flex;
+  align-items: center;
+  color: white;;
+}

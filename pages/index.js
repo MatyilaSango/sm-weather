@@ -1,7 +1,53 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import searchIcon from '../icons/search.png'
+import weatherWallpaper from '../icons/weather.jpg'
+import locationPic from '../icons/location.png'
+import wp from '../icons/wp.png'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
-export default function Home() {
+
+export const getStaticProps = async () => {
+  const loc = await axios.get(`https://ipinfo.io/`)
+  const jsondata = await loc.data
+
+  const getData = await fetch(`https://sm-weather-api.herokuapp.com/weather/${jsondata.city}`);
+  const data = await getData.json();
+
+  return {
+    props: {
+      data: data,
+    }
+  }
+}
+
+export default function Home(data) {
+
+  const [jdata, setData] = useState(data)
+  const [loaded, setLoaded] = useState(false)
+  const router = useRouter()
+
+  const searchWeather = async (e) => {
+    e.preventDefault();
+    const query = e.target[0].value
+
+    fetch(`https://sm-weather-api.herokuapp.com/weather/${query}`).then((res) => { 
+      const newData = res.json();
+      console.log(newData)
+      setData(newData)
+      setLoaded(true)
+    }).catch(() => { router.reload() });
+    
+  }
+
+  useEffect(() => {
+    setData(jdata)
+    setLoaded(false)
+  }, [loaded])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -9,6 +55,47 @@ export default function Home() {
         <meta name="description" content="Global weather app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <main className={styles.mainContainer}>
+        <Image className={styles.weatherWallpaper} src={weatherWallpaper} alt='wallpaper' />
+
+        <section className={styles.topContainer}>
+
+          <nav className={styles.navContainer}>
+            <div className={styles.searchContainer}>
+              <form className={styles.searchForm} onSubmit={searchWeather}>
+                <input type='text' name='query' placeholder='Search' required />
+                <button type='submit' ><Image className={styles.searchIcon} src={searchIcon} alt='search' /></button>
+              </form>
+            </div>
+          </nav>
+
+          {jdata.data.location !== "" &&
+            <div className={styles.todayWeatherContainer}>
+              <div className={styles.todayWeatherContainerDisplay}>
+                <div className={styles.locationWeather}>
+                  <Image src={locationPic} className={styles.locationPic} width={30} alt='lp' />
+                  <span> {jdata.data.full_location.split("-")[0] + " - " + jdata.data.full_location.split("-")[1]} </span>
+                </div>
+                <div className={styles.todayWeather}>
+                  <div className={styles.weatherIcon}>
+                    <Image src={wp} alt='icon' width={100} />
+                  </div>
+                  <div className={styles.weatherDegrees}>
+                    <div className={styles.weatherDegreesValues}>
+                      {jdata.data.next_days_data[0].temperature}
+                    </div>
+                    <div className={styles.weatherTypeValues}>
+                      {jdata.data.next_days_data[0].weather_type}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+        </section>
+      </main>
 
 
     </div>
