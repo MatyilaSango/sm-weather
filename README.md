@@ -10,5 +10,5 @@ npm run dev
 yarn dev
 ```
 
-## Deployed on Vercel
-Link to the app: [sm-weather](https://sm-weather.vercel.app/).
+## Deployed on Netlify
+Link to the app: [sm-weather](https://sm-weather-global.netlify.app/).
