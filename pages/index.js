@@ -172,6 +172,10 @@ export default function Home(data) {
 
             </div>
           )}
+
+          <div className={styles.footer}>
+            <div>© {Date().split(" ")[3]} SM-Weather</div>
+          </div>
         </section>
       </main>
     </div>
