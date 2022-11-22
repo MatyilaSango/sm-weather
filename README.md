@@ -10,5 +10,6 @@ npm run dev
 yarn dev
 ```
 
-## Deployed on Netlify
+## Deployed on Vecrel and Netlify
+Link to the app: [sm-weather](https://sm-weather.vercel.app/).
 Link to the app: [sm-weather](https://sm-weather-global.netlify.app/).
