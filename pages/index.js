@@ -51,6 +51,8 @@ export default function Home(data) {
         searchRef.current.value = "";
         loadingTextRef.current = "";
       });
+    }).catch((error) => {
+      {loadingTextRef.current = "Error!!!"}
     });
   };
 
