@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 A global weather application.
 
-## Snipshort
+## Screenshort
 
 ![scr](https://user-images.githubusercontent.com/60422984/203816096-bc6023e5-64e7-4193-a465-f0797ca3aebc.jpg)
 
