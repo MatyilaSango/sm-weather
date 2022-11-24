@@ -9,10 +9,12 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 export const getStaticProps = async () => {
-  const loc = await axios.get(`https://ipinfo.io/`)
-  const jsondata = await loc.data
+  const loc = await axios.get(`https://ipinfo.io/`);
+  const jsondata = await loc.data;
 
-  const getData = await fetch(`https://sm-weather-api.herokuapp.com/weather/${jsondata.city}`);
+  const getData = await fetch(
+    `https://sm-waether-api.vercel.app/weather/${jsondata.city}`
+  );
   const data = await getData.json();
 
   return {
@@ -25,34 +27,32 @@ export const getStaticProps = async () => {
 export default function Home(data) {
   const [jdata, setJdata] = useState(data);
   const [loaded, setLoaded] = useState(false);
-  const searchRef = useRef()
-
+  const searchRef = useRef();
 
   const searchWeather = async (e) => {
     e.preventDefault();
     const query = e.target[0].value;
 
     fetch(`/api/weather`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        accept: 'application/json',
+        accept: "application/json",
       },
-      body: query
+      body: query,
     }).then((results) => {
       results.json().then((data) => {
-        const newData = {data};
-        setJdata(newData)
-        setLoaded(true)
-      })
-    })
-    
+        const newData = { data };
+        setJdata(newData);
+        setLoaded(true);
+      });
+    });
   };
 
   useEffect(() => {
-    setJdata(jdata)
-    setLoaded[false]
-    searchRef.current.value = ""
-  },[loaded])
+    setJdata(jdata);
+    setLoaded[false];
+    searchRef.current.value = "";
+  }, [loaded]);
 
   return (
     <div className={styles.container}>
@@ -73,7 +73,13 @@ export default function Home(data) {
           <nav className={styles.navContainer}>
             <div className={styles.searchContainer}>
               <form className={styles.searchForm} onSubmit={searchWeather}>
-                <input type="text" name="query" placeholder="Search" required ref={searchRef} />
+                <input
+                  type="text"
+                  name="query"
+                  placeholder="Search"
+                  required
+                  ref={searchRef}
+                />
                 <button type="submit">
                   <Image
                     className={styles.searchIcon}
@@ -129,22 +135,49 @@ export default function Home(data) {
                       </div>
                       <div className={styles.hourlyWeatherRestData}>
                         <span>
-                          <span className={styles.weatherSpanText}>Degrees :{" "}</span>
+                          <span className={styles.weatherSpanText}>
+                            Degrees :{" "}
+                          </span>
                           {content.degrees[0].c +
                             " c " +
                             jdata.data.today_hourly_data[0].degrees[1].f +
                             " f"}{" "}
                         </span>
                         <br />
-                        <span><span className={styles.weatherSpanText}>Humidity :</span> {content.Humidity}</span>
+                        <span>
+                          <span className={styles.weatherSpanText}>
+                            Humidity :
+                          </span>{" "}
+                          {content.Humidity}
+                        </span>
                         <br />
-                        <span><span className={styles.weatherSpanText}>Pressure :</span> {content.Pressure}</span>
+                        <span>
+                          <span className={styles.weatherSpanText}>
+                            Pressure :
+                          </span>{" "}
+                          {content.Pressure}
+                        </span>
                         <br />
-                        <span><span className={styles.weatherSpanText}>Vissibility :</span> {content.Visibility}</span>
+                        <span>
+                          <span className={styles.weatherSpanText}>
+                            Vissibility :
+                          </span>{" "}
+                          {content.Visibility}
+                        </span>
                         <br />
-                        <span><span className={styles.weatherSpanText}>Precipitation :</span> {content.precipitation}</span>
+                        <span>
+                          <span className={styles.weatherSpanText}>
+                            Precipitation :
+                          </span>{" "}
+                          {content.precipitation}
+                        </span>
                         <br />
-                        <span><span className={styles.weatherSpanText}>breeze :</span> {content.breeze}</span>
+                        <span>
+                          <span className={styles.weatherSpanText}>
+                            breeze :
+                          </span>{" "}
+                          {content.breeze}
+                        </span>
                         <br />
                       </div>
                     </div>
@@ -161,19 +194,38 @@ export default function Home(data) {
                         {content.day}
                       </div>
                       <div className={styles.dailyWeatherRestData}>
-                        <div><span><span className={styles.weatherSpanText}>Weather type :</span> {content.weather_type} </span></div>
+                        <div>
+                          <span>
+                            <span className={styles.weatherSpanText}>
+                              Weather type :
+                            </span>{" "}
+                            {content.weather_type}{" "}
+                          </span>
+                        </div>
                         <br />
-                        <div><span><span className={styles.weatherSpanText}>Temperature :</span> {content.temperature}</span></div>
+                        <div>
+                          <span>
+                            <span className={styles.weatherSpanText}>
+                              Temperature :
+                            </span>{" "}
+                            {content.temperature}
+                          </span>
+                        </div>
                         <br />
-                        <div><span><span className={styles.weatherSpanText}>Wind :</span> {content.wind}</span></div>
+                        <div>
+                          <span>
+                            <span className={styles.weatherSpanText}>
+                              Wind :
+                            </span>{" "}
+                            {content.wind}
+                          </span>
+                        </div>
                         <br />
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-
-
             </div>
           )}
 
