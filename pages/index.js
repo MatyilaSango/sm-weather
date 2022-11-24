@@ -69,7 +69,7 @@ export default function Home(data) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>SM-Weather</title>
+        <title>SM-Weather | {jdata.data.location}</title>
         <meta name="description" content="Global weather app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
