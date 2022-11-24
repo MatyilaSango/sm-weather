@@ -5,9 +5,8 @@ import searchIcon from "../icons/search.png";
 import weatherWallpaper from "../icons/weather.jpg";
 import locationPic from "../icons/location.png";
 import wp from "../icons/wp.png";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
 
 export const getStaticProps = async () => {
   const loc = await axios.get(`https://ipinfo.io/`)
@@ -15,6 +14,8 @@ export const getStaticProps = async () => {
 
   const getData = await fetch(`https://sm-weather-api.herokuapp.com/weather/${jsondata.city}`);
   const data = await getData.json();
+
+  console.log(data.today_hourly_data.length)
 
   return {
     props: {
@@ -24,31 +25,38 @@ export const getStaticProps = async () => {
 };
 
 export default function Home(data) {
-  const [jdata, setData] = useState(data);
+  const [jdata, setJdata] = useState(data);
   const [loaded, setLoaded] = useState(false);
-  const router = useRouter();
+  const searchRef = useRef()
+
 
   const searchWeather = async (e) => {
     e.preventDefault();
     const query = e.target[0].value;
 
-    fetch(`https://sm-weather-api.herokuapp.com/weather/${query}`)
-      .then((res) => {
-        const newData = res.json();
-        console.log(newData);
-        setData(newData);
-        setLoaded(true);
+    console.log(typeof(query))
+
+    fetch(`/api/weather`, {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+      },
+      body: query
+    }).then((results) => {
+      results.json().then((data) => {
+        const newData = {data};
+        setJdata(newData)
+        setLoaded(true)
       })
-      .catch((error) => {
-        console.log(error);
-        router.reload();
-      });
+    })
+    
   };
 
   useEffect(() => {
-    setData(jdata);
-    setLoaded(false);
-  }, [loaded]);
+    setJdata(jdata)
+    setLoaded[false]
+    searchRef.current.value = ""
+  },[loaded])
 
   return (
     <div className={styles.container}>
@@ -69,7 +77,7 @@ export default function Home(data) {
           <nav className={styles.navContainer}>
             <div className={styles.searchContainer}>
               <form className={styles.searchForm} onSubmit={searchWeather}>
-                <input type="text" name="query" placeholder="Search" required />
+                <input type="text" name="query" placeholder="Search" required ref={searchRef} />
                 <button type="submit">
                   <Image
                     className={styles.searchIcon}
