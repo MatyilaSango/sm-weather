@@ -15,8 +15,6 @@ export const getStaticProps = async () => {
   const getData = await fetch(`https://sm-weather-api.herokuapp.com/weather/${jsondata.city}`);
   const data = await getData.json();
 
-  console.log(data.today_hourly_data.length)
-
   return {
     props: {
       data: data,
@@ -33,8 +31,6 @@ export default function Home(data) {
   const searchWeather = async (e) => {
     e.preventDefault();
     const query = e.target[0].value;
-
-    console.log(typeof(query))
 
     fetch(`/api/weather`, {
       method: 'POST',
