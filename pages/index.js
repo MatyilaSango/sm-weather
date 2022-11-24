@@ -27,11 +27,15 @@ export const getStaticProps = async () => {
 export default function Home(data) {
   const [jdata, setJdata] = useState(data);
   const [loaded, setLoaded] = useState(false);
-  const searchRef = useRef();
+  const [isLoading, setIsLoading] = useState(false);
+  const searchRef = useRef("");
+  const loadingTextRef = useRef("");
 
   const searchWeather = async (e) => {
     e.preventDefault();
     const query = e.target[0].value;
+
+    setIsLoading(true)
 
     fetch(`/api/weather`, {
       method: "POST",
@@ -44,14 +48,20 @@ export default function Home(data) {
         const newData = { data };
         setJdata(newData);
         setLoaded(true);
+        searchRef.current.value = "";
+        loadingTextRef.current = "";
       });
     });
   };
 
   useEffect(() => {
+    loadingTextRef.current = "Loading..."
+    setIsLoading(false)
+  },[isLoading])
+
+  useEffect(() => {
     setJdata(jdata);
-    setLoaded[false];
-    searchRef.current.value = "";
+    setLoaded[false];    
   }, [loaded]);
 
   return (
@@ -89,6 +99,9 @@ export default function Home(data) {
                 </button>
               </form>
             </div>
+            <span className={styles.loadingText}>
+              {loadingTextRef.current}
+            </span>
           </nav>
 
           {jdata.data.location !== "" && (
@@ -111,7 +124,7 @@ export default function Home(data) {
                   </div>
                   <div className={styles.todayWeather}>
                     <div className={styles.weatherIcon}>
-                      <Image src={wp} alt="icon" width={100} />
+                      <Image className={styles.weatherIconPic} src={wp} alt="icon" width={100} />
                     </div>
                     <div className={styles.weatherDegrees}>
                       <div className={styles.weatherDegreesValues}>
