@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import searchIcon from "../icons/search.png";
-import weatherWallpaper from "../icons/weather.jpg";
+import daysky from "../icons/daysky.jpg";
+import nightsky from "../icons/nightsky.jpg";
 import locationPic from "../icons/location.png";
 import wp from "../icons/wp.png";
 import { useEffect, useRef, useState } from "react";
@@ -30,12 +31,13 @@ export default function Home(data) {
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef("");
   const loadingTextRef = useRef("");
+  const currentTimeHRS = Number(Date().split(" ")[4].split(":")[0]);
 
   const searchWeather = async (e) => {
     e.preventDefault();
     const query = e.target[0].value;
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     fetch(`/api/weather`, {
       method: "POST",
@@ -43,28 +45,37 @@ export default function Home(data) {
         accept: "application/json",
       },
       body: query,
-    }).then((results) => {
-      results.json().then((data) => {
-        const newData = { data };
-        setJdata(newData);
-        setLoaded(true);
-        searchRef.current.value = "";
-        loadingTextRef.current = "";
+    })
+      .then((results) => {
+        results.json().then((data) => {
+          const newData = { data };
+          setJdata(newData);
+          setLoaded(true);
+          searchRef.current.value = "";
+          loadingTextRef.current = "";
+        });
+      })
+      .catch((error) => {
+        {
+          loadingTextRef.current = "Error!!!";
+        }
       });
-    }).catch((error) => {
-      {loadingTextRef.current = "Error!!!"}
-    });
   };
 
   useEffect(() => {
-    loadingTextRef.current = "Loading..."
-    setIsLoading(false)
-  },[isLoading])
+    loadingTextRef.current = "Loading...";
+    setIsLoading(false);
+  }, [isLoading]);
 
   useEffect(() => {
     setJdata(jdata);
-    setLoaded[false];    
+    setLoaded[false];
   }, [loaded]);
+
+  function isDay(hrs) {
+    if (hrs >= 6 && hrs < 18) return daysky;
+    return nightsky;
+  }
 
   return (
     <div className={styles.container}>
@@ -77,7 +88,7 @@ export default function Home(data) {
       <main className={styles.mainContainer}>
         <Image
           className={styles.weatherWallpaper}
-          src={weatherWallpaper}
+          src={isDay(currentTimeHRS)}
           alt="wallpaper"
         />
 
@@ -101,9 +112,7 @@ export default function Home(data) {
                 </button>
               </form>
             </div>
-            <span className={styles.loadingText}>
-              {loadingTextRef.current}
-            </span>
+            <span className={styles.loadingText}>{loadingTextRef.current}</span>
           </nav>
 
           {jdata.data.location !== "" && (
@@ -126,7 +135,12 @@ export default function Home(data) {
                   </div>
                   <div className={styles.todayWeather}>
                     <div className={styles.weatherIcon}>
-                      <Image className={styles.weatherIconPic} src={wp} alt="icon" width={100} />
+                      <Image
+                        className={styles.weatherIconPic}
+                        src={wp}
+                        alt="icon"
+                        width={100}
+                      />
                     </div>
                     <div className={styles.weatherDegrees}>
                       <div className={styles.weatherDegreesValues}>

@@ -2,18 +2,20 @@
   width: 100%;
   height: 100vh;
 }
+
 .mainContainer {
   width: 100%;
   height: 100%;
   position: relative;
-  background-repeat: no-repeat;
-  object-fit: cover;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-.mainContainer .weatherWallpaper {
+.weatherWallpaper{
   position: relative;
-  top: -500px;
+  height: 150%;
+  width: auto;
 }
 
 .topContainer {
@@ -56,7 +58,7 @@
 .searchForm input {
   width: calc(100% - 50px);
   height: 100%;
-  background-color: inherit;
+  background-color: transparent;
   padding-left: 20px;
   border: none;
   font-size: 20px;
@@ -64,13 +66,13 @@
 }
 
 .searchForm input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: #6A6A6A
 }
 
 .searchForm input:focus {
   border: none;
   outline: none;
-  background-color: transparent;
+  background-color: #6A6A6A;
 }
 
 .searchForm button {
@@ -93,7 +95,7 @@
 }
 
 .loadingText{
-  color: rgba(255, 255, 255, 0.7);
+  color: #6A6A6A;
   position: absolute;
   bottom: -10px;
   animation: animateLoadingText 2s infinite linear;
@@ -124,7 +126,7 @@
   width: 500px;
   height: 80%;
   border: 1px solid rgb(255, 255, 255);
-  background-color: transparent;
+  background-color: #6A6A6A;
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);
