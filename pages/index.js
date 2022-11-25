@@ -31,7 +31,7 @@ export default function Home(data) {
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef("");
   const loadingTextRef = useRef("");
-  const currentTimeHRS = Number(Date().split(" ")[4].split(":")[0]);
+  const currentTimeHRS = Number(jdata.data.today_hourly_data[0].time.split(":")[0]);
 
   const searchWeather = async (e) => {
     e.preventDefault();
