@@ -279,28 +279,12 @@
 
 
 @media (max-width: 720px) {
-  .hourlyWeatherContainerDisplay,
-  .dailyWeatherContainerDisplay {
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
 
   .dailyWeatherContent{
     height: 500px;
   }
   .dailyWeatherContent .dailyWeatherTimeWrapper{
     font-size: 15px;
-  }
-
-  .topContainer::-webkit-scrollbar-thumb,
-  .hourlyWeatherContainerDisplay::-webkit-scrollbar-thumb,
-  .dailyWeatherContainerDisplay::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(
-      to bottom,
-      transparent,
-      #5a4776,
-      transparent
-    );
   }
 
   .weatherIconPic{
