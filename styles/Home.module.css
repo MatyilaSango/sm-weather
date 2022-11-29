@@ -202,6 +202,7 @@
   flex-flow: row wrap;
   justify-content: center;
   overflow: scroll;
+  overflow-x: hidden;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -267,29 +268,15 @@
 .hourlyWeatherContainerDisplay::-webkit-scrollbar,
 .dailyWeatherContainerDisplay::-webkit-scrollbar {
   width: 10px;
-  height: 10px;
 }
 
 .topContainer::-webkit-scrollbar-thumb,
 .hourlyWeatherContainerDisplay::-webkit-scrollbar-thumb,
 .dailyWeatherContainerDisplay::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(
-    to right,
-    transparent,
-    #5a4776,
-    transparent
-  );
+  background-color: #6A6A6A;
   border-radius: 10px;
 }
 
-.topContainer::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(
-    to bottom,
-    transparent,
-    #5a4776,
-    transparent
-  );
-}
 
 @media (max-width: 720px) {
   .hourlyWeatherContainerDisplay,
