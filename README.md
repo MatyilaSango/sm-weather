@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## SM-Weather
 
-A global weather application.
+A global weather application v1.
 
 ## Screenshort
 
